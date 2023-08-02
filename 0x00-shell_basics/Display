@@ -1,0 +1,14 @@
+mple:
+
+$ ./1-listit
+Applications    Documents   Dropbox Movies Pictures
+Desktop Downloads   Library Music Public
+$
+Repo:
+
+GitHub repository: alx-system_engineering-devops
+Directory: 0x00-shell_basics
+File: 1-listit
+
+#!/bin/bash
+ls
