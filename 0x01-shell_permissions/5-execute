@@ -1,2 +1,2 @@
 #!/bin/bash
-[ -e hello ] && chmod 754 hello
+chmod u+x hello
