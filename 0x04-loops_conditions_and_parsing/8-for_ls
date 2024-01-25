@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# This Display the content of the current directory in a list format
+
+lists="$(ls -1)"
+for ind in $lists; do
+    echo "$ind" | cut -d'-' -f2
+done
