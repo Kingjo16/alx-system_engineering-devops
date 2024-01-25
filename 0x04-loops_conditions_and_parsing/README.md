@@ -1,0 +1,1 @@
+lopps , conditons and parsing
