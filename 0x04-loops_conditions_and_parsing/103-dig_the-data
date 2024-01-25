@@ -1,4 +1,15 @@
 #!/usr/bin/env bash
 #Displays the Ip and status code
 
-awk '{ print $1 " " $9}' apache-access.log | sort | uniq -c | sort -rn
+awk '{
+    ip = $1
+    status = $9
+    count[ip, status]++
+}
+END {
+    for (key in count) {
+        split(key, parts, SUBSEP)
+        printf("%6d %15s %3s\n", count[key], parts[1], parts[2])
+    }
+}' /etc/httpd/logs/access_log | sort -nr
+
