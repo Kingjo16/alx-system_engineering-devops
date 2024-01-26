@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
-# Display all List of the process in the system
+# Display in a user-oriented format.
+#   Shows all processes, for all users.
 
 ps -auxf
