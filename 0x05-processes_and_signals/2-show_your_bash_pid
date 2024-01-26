@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Display a link lines that is currently running process the word bash.
+
+ps -aux | grep bash
