@@ -1,10 +1,28 @@
 #!/usr/bin/env bash
 # write "I am alive!" to a file
 
-NAME=/tmp/my_process
-sudo touch $NAME
+case "$1" in
+    start)
+        ./100-manage_my_process &
+        echo $! > /var/run/my_process.pid
+        echo "manage_my_process started"
+        ;;
+    stop)
+        kill $(cat /var/run/my_process.pid)
+        rm -f /var/run/my_process.pid
+        echo "manage_my_process stopped"
+        ;;
+    restart)
+        kill $(cat /var/run/my_process.pid) || true
+        rm -f /var/run/my_process.pid
+        ./100-manage_my_process &
+        echo $! > /var/run/my_process.pid
+        echo "manage_my_process restarted"
+        ;;
+    *)
+        echo "Usage: manage_my_process {start|stop|restart}"
+        exit 1
+        ;;
+esac
 
-while true; do
-    sudo bash -c "echo \"I am alive!\" >> $NAME"
-    sleep 2
-done
+exit 0
