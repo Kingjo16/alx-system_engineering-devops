@@ -5,18 +5,20 @@
 #   Display "I hate the kill command" upon receiving a SIGTERM.
 #   Display "Y U no love me?!" upon receiving a SIDn.
 
-terminator() {
-  rm /var/run/myscript.pid
-  exit
+cleanup() {
+    echo "I hate the kill command"
+    rm -f /var/run/myscript.pid
+    exit 0
 }
 
-echo "$$" > /var/run/myscript.pid
+trap 'cleanup' SIGQUIT
+trap 'echo "Y U no love me?!"' SIGINT
+
+echo $$ > /var/run/myscript.pid
 
 while true
 do
-  echo "To infinity and beyond"
-  sleep 2
-  trap 'echo "Y U no love me?!"' SIGINT
-  trap 'echo "I hate the kill command" && terminator' SIGTERM
-  trap 'terminator' SIGQUIT
+    echo "To infinity and beyond"
+    sleep 2
 done
+
