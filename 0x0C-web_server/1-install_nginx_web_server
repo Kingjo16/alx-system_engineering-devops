@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
-# install a nginx and confi to the server
+# Install nginx with the -y option to assume yes to prompts
+apt-get update
+apt-get install -y nginx
+echo "Hello World!" > /var/www/html/index.html
+sed -i 's/^\(listen\s\+\)80/\180/' /etc/nginx/sites-available/default
 
-apt-get -y update
-apt-get -y install nginx
-ufw allow 'Nginx HTTP'
-echo 'Hello World!' > /var/www/html/index.nginx-debian.html
-service nginx start
+kill -s HUP $(pgrep nginx)
+
+exit 0
