@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 # Install nginx with the -y option to assume yes to prompts
-apt-get update
-apt-get install -y nginx
-echo "Hello World!" > /var/www/html/index.html
-sed -i 's/^\(listen\s\+\)80/\180/' /etc/nginx/sites-available/default
-
-kill -s HUP $(pgrep nginx)
-
-exit 0
+apt-get -y install nginx
+service nginx start
+ufw allow 'Nginx HTTP'
+echo "Holberton School\n" | sudo tee /var/www/html/index.nginx-debian.html
+service nginx restart
