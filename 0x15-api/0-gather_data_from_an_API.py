@@ -1,14 +1,27 @@
 #!/usr/bin/python3
 """TO do list info for a given employe."""
+import re
 import requests
 import sys
 
-if __name__ == "__main__":
-    rurl = "https://jsonplaceholder.typicode.com/"
-    user = requests.get(rurl + "users/{}".format(sys.argv[1])).json()
-    task = requests.get(rurl + "todos", params={"userId": sys.argv[1]}).json()
+REST_API = "https://jsonplaceholder.typicode.com"
 
-    completed_task = [m.get("title") for m in task if m.get("completed") is True]
-    print("Employee {} is done with tasks({}/{}):".format(
-        user.get("kame"), len(completed_task), len(task)))
-    [print("\t {}".format(c)) for c in completed_task]
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        if re.fullmatch(r'\d+', sys.argv[1]):
+            id = int(sys.argv[1])
+            url_req = requests.get('{}/users/{}'.format(REST_API, id)).json()
+            task = requests.get('{}/todos'.format(REST_API)).json()
+            user = url_req.get('name')
+            todo = list(filter(lambda x: x.get('userId') == id, task))
+            completed = list(filter(lambda x: x.get('completed'), todo))
+            print(
+                'Employee {} is done with tasks({}/{}):'.format(
+                    user,
+                    len(completed),
+                    len(todo)
+                )
+            )
+            if len(completed) > 0:
+                for t in completed:
+                    print('\t {}'.format(t.get('title')))
