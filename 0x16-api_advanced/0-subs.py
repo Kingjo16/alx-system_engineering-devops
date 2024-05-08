@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 """Function to To the Query."""
 import requests
-from requests.exceptions import HTTPError, JSONDecodeError, RequestException
-
 
 def number_of_subscribers(subreddit):
     """Total number of subscribers on a given subreddit."""
